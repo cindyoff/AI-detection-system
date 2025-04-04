@@ -6,50 +6,60 @@ df.rename(columns={'label':'class'}, inplace=True)
 df['binary_label'] = df['class'].apply(lambda x: 1 if 'human' in x else 0)
 test['binary_label'] = test['class'].apply(lambda x: 1 if x == 1 else 0)
 
-# Mélanger la base test avant de diviser
-test_shuffled = test.sample(frac=1, random_state=42).reset_index(drop=True)  # Mélanger test
+# dataset shuffling to avoid under-representation when doing the random sampling
+test_shuffled = test.sample(frac=1, random_state=42).reset_index(drop=True)
 
-# Diviser test en 2 parties : une pour l'entraînement et l'autre pour le test
+# 30% of df put into the training dataset 
 test_split_index = int(len(test_shuffled) * 0.3)
-test_part_train = test_shuffled[:test_split_index]  # Partie de test à ajouter à l'entraînement
-test_part_test = test_shuffled[test_split_index:]  # Partie restante de test pour l'évaluation
+test_part_train = test_shuffled[:test_split_index] # train
+test_part_test = test_shuffled[test_split_index:]  # test (70%)
 
-# Ajouter la partie de test à df pour l'entraînement
+# merge between the 2 datasets
 df_with_test = pd.concat([df, test_part_train], ignore_index=True)
 
-# Création Features
+# feature engineering
 def count_repeated_words(text):
+    """number of words within a sentence"""
     word_counts = Counter(text.split())
     return sum(count > 2 for count in word_counts.values())
 
 def punctuation_ratio(text):
+    """ratio of punctuation within a sentence"""
     punctuation_count = sum(1 for char in text if char in string.punctuation)
     return punctuation_count / len(text) if len(text) > 0 else 0
 
 def sentence_length_variance(text):
+    """variance of a sentence"""
     sentences = text.split('.')
     lengths = [len(sentence.split()) for sentence in sentences if len(sentence) > 0]
     return np.var(lengths) if lengths else 0
 
 def detect_human_markers(text):
+    """look for personal pronouns"""
     human_markers = {"i", "me", "my", "mine", "myself"}
     return sum(1 for word in text.split() if word in human_markers)
 
 def count_informal_words(text):
+    """look for informal wordings, any wordings that 
+    would not fit in an academic environment"""
     informal_words = {"idk", "btw", "u", "gonna", "lemme", "wanna", "y’all", "gimme", "dunno", "lol"}
     return sum(1 for word in text.split() if word in informal_words)
 
 def detect_emotional_tone(text):
+    """look for words transcribing any type of emotions"""
     emotion_words = {"love", "hate", "happy", "sad", "excited", "angry", "surprised", "disappointed"}
     return sum(1 for word in text.split() if word in emotion_words)
 
 def count_punctuation_issues(text):
+    """look for mistakes in punctuation"""
     return len(re.findall(r'[!?.,]{2,}', text))
 
 def count_hyphen_splits(text):
+    """number of words split in the middle by a hyphen"""
     return len(re.findall(r'\w+-\s', text))
 
 def count_abnormal_spaces(text):
+    """number of excess spaces between words in a sentence"""
     return len(re.findall(r'\s{2,}|(?<!\s)\s(?!\s)', text))
 
 def add_features(df):
