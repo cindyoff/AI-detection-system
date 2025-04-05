@@ -1,4 +1,6 @@
 # dataset prep
+test['class'].isna().sum()
+test = test.dropna(subset=['class'])
 df.rename(columns={'Generation':'article'}, inplace=True)
 df.rename(columns={'label':'class'}, inplace=True)
 
