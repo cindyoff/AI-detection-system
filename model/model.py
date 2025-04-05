@@ -103,3 +103,7 @@ if len(y_train.unique()) > 1:
     X_train_balanced, y_train_balanced = sm.fit_resample(X_train_full, y_train)
 else:
     X_train_balanced, y_train_balanced = X_train_full, y_train
+
+# model training
+clf = XGBClassifier(n_estimators=200, learning_rate=0.05, max_depth=6, scale_pos_weight=1.5, random_state=42)
+clf.fit(X_train_balanced, y_train_balanced)
