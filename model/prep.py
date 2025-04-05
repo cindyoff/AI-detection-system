@@ -95,7 +95,7 @@ X_test_manual = csr_matrix(X_test.drop(columns=['article']).values.astype(np.flo
 X_train_full = hstack([X_train_tfidf, X_train_manual])
 X_test_full = hstack([X_test_tfidf, X_test_manual])
 
-# SMOTE
+# SMOTE (synthetic minority oversampling technique)
 if len(y_train.unique()) > 1:
     sm = SMOTE(random_state=42)
     X_train_balanced, y_train_balanced = sm.fit_resample(X_train_full, y_train)
