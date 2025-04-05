@@ -78,24 +78,24 @@ def add_features(df):
 df_with_test = add_features(df_with_test)
 test_part_test = add_features(test_part_test)
 
-# Séparation en ensemble d'entraînement et de test
+# dividing dataset into train and test
 X_train = df_with_test.drop(columns=['class', 'binary_label'])
 y_train = df_with_test['binary_label']
 X_test = test_part_test.drop(columns=['class', 'binary_label'])
 y_test = test_part_test['binary_label']
 
-# Vectorisation TF-IDF
+# TF-IDF vectorization
 vectorizer = TfidfVectorizer(max_features=5000)
 X_train_tfidf = vectorizer.fit_transform(X_train['article'].astype(str))
 X_test_tfidf = vectorizer.transform(X_test['article'].astype(str))
 
-# Concaténer les features manuelles et TF-IDF
+# merge TF-IDF and the features
 X_train_manual = csr_matrix(X_train.drop(columns=['article']).values.astype(np.float64))
 X_test_manual = csr_matrix(X_test.drop(columns=['article']).values.astype(np.float64))
 X_train_full = hstack([X_train_tfidf, X_train_manual])
 X_test_full = hstack([X_test_tfidf, X_test_manual])
 
-# Appliquer SMOTE seulement si les deux classes sont présentes
+# SMOTE
 if len(y_train.unique()) > 1:
     sm = SMOTE(random_state=42)
     X_train_balanced, y_train_balanced = sm.fit_resample(X_train_full, y_train)
