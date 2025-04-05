@@ -5,10 +5,11 @@ Project done under the course "Text mining and social media analysis" during my 
 Framework : model established to classify academic responses, in computer science and cybersecurity, according to its source (human or AI). 
 
 Naming : ("model" folder)
-"df" = training dataset
-"test" = test dataset
+- "df" = training dataset
+- "test" = test dataset
+
 Naming : ("descriptive stats" folder)
-"df" = test dataset
+- "df" = test dataset
 
 References : 
 - _Text mining and social media analysis_ course by Pr. Tri Duc Tran (2025)
