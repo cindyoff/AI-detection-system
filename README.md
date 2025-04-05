@@ -4,6 +4,12 @@ Project done under the course "Text mining and social media analysis" during my 
 
 Framework : model established to classify academic responses, in computer science and cybersecurity, according to its source (human or AI). 
 
+Naming : ("model" folder)
+"df" = training dataset
+"test" = test dataset
+Naming : ("descriptive stats" folder)
+"df" = test dataset
+
 References : 
 - _Text mining and social media analysis_ course by Pr. Tri Duc Tran (2025)
 - _Detection and Classification of ChatGPT Generated Contents Using Deep Transformer Models_ research paper by Mahdi Maktab Dar Oghaz, Kshipra Dhame, Gayathri Singaram, Lakshmi Babu Saheer (Anglia Ruskin University, 2023)
