@@ -9,21 +9,21 @@
 ## textual data manipulation
 - re
 - string
-- (from) collections
-  - (import) Counter
-- (from) wordcloud
-  - (import) WordCloud
+- collections
+  - Counter
+- wordcloud
+  - WordCloud
 
 ## machine learning model
-- (from) sklearn.feature
-  - (import) TfidfVectorizer
-- (from) sklearn.metrics
-  - (import) classification_report, confusion_matrix, roc_curve, roc_auc_score, auc
-- (from) xgboost
-  - (import) XGBClassifier
-- (from) imblearn.over_sampling
-  - (import) SMOTE
-- (from) scipy.stats
-  - (import) ttest_ind
-- (from) scipy.sparse
-  - (import) hstack, csr_matrix
+ sklearn.feature
+  - TfidfVectorizer
+- sklearn.metrics
+  - classification_report, confusion_matrix, roc_curve, roc_auc_score, auc
+- xgboost
+  - XGBClassifier
+- imblearn.over_sampling
+  - SMOTE
+- scipy.stats
+  - ttest_ind
+- scipy.sparse
+  - hstack, csr_matrix
