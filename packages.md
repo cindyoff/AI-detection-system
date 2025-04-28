@@ -15,7 +15,7 @@
   - WordCloud
 
 ## machine learning model
- sklearn.feature
+- sklearn.feature
   - TfidfVectorizer
 - sklearn.metrics
   - classification_report, confusion_matrix, roc_curve, roc_auc_score, auc
